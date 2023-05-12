@@ -25,6 +25,7 @@ const connectDB = require('./db/connect');
 //routes
 const authRouter = require('./routes/auth');
 const jobsRouter = require('./routes/jobs');
+const { StatusCodes } = require('http-status-codes');
 
 app.set('trust proxy', 1);
 app.use(
@@ -40,7 +41,9 @@ app.use(xss());
 // extra packages
 
 app.get('/', (req, res) => {
-	res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+	res.status(StatusCodes.OK).send(
+		'<h1>Jobs API</h1><a href="/api-docs">Documentation</a>'
+	);
 });
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
